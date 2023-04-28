@@ -9,6 +9,7 @@ import { downloadCanvasToImage, reader } from '../config/helpers';
 import { EditorTabs, FilterTabs, DecalTypes } from '../config/constants';
 import { fadeAnimation, slideAnimation } from '../config/motion';
 import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from '../components';
+import ChatGPT from '../components/ChatGPt';
 
 const Customizer = () => {
   const snap = useSnapshot(state);
@@ -17,6 +18,9 @@ const Customizer = () => {
 
   const [prompt, setPrompt] = useState('');
   const [generatingImg, setGeneratingImg] = useState(false);
+
+  const [message, setMessage] = useState('');
+  const [generatingMessage, setGeneratingMessage] = useState(false);
 
   const [activeEditorTab, setActiveEditorTab] = useState("");
   const [activeFilterTab, setActiveFilterTab] = useState({
@@ -41,6 +45,14 @@ const Customizer = () => {
           setPrompt={setPrompt}
           generatingImg={generatingImg}
           handleSubmit={handleSubmit}
+        />
+      case "chatgpt":
+        return <ChatGPT
+          message={message}
+          setMessage={setMessage}
+          generatingMessage={generatingMessage}
+          handleChatSubmit={handleChatSubmit}
+          setActiveEditorTab={setActiveEditorTab}
         />
       default:
         return null;
@@ -71,6 +83,31 @@ const Customizer = () => {
     } finally {
       setGeneratingImg(false);
       setActiveEditorTab("");
+    }
+  }
+  const handleChatSubmit = async (type) => {
+    if (!message) return alert("Please enter a prompt");
+
+    try {
+      setGeneratingMessage(true);
+
+      const response = await fetch('http://localhost:8080/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message,
+        })
+      })
+      const data = await response.json();
+      setMessage(data.message);
+      // handleDecals(type, `data:image/png;base64,${data.photo}`)
+    } catch (error) {
+      alert(error)
+    } finally {
+      setGeneratingMessage(false);
+      // setActiveEditorTab("");
     }
   }
 

@@ -5,5 +5,6 @@ import download from "./download.png";
 
 import logoShirt from "./logo-tshirt.png";
 import stylishShirt from "./stylish-tshirt.png";
+import chatLogo from "./chat_logo.png"
 
-export { ai, fileIcon, swatch, download, logoShirt, stylishShirt };
+export { ai, fileIcon, swatch, download, logoShirt, stylishShirt,chatLogo };
