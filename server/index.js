@@ -5,7 +5,7 @@ import cors from 'cors';
 import dalleRoutes from './routes/dalle.routes.js';
 import chatRoutes from './routes/chat.routes.js';
 dotenv.config();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
 app.use(express.json({ limig: "50mb" }))
