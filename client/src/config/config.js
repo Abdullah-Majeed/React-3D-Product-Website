@@ -1,9 +1,11 @@
 const config = {
   development: {
-    backendUrl: "http://localhost:8080/api/v1/dalle",
+    dalleBackendUrl: "http://localhost:3000/api/v1/dalle",
+    chatBackendurl: "http://localhost:8080/api/v1/chat/completions"
   },
   production: {
-    backendUrl: "https://devswag.onrender.com/api/v1/dalle",
+    dalleBackendUrl: "https://yellow-meerkat-slip.cyclic.app/api/v1/dalle",
+    chatBackendurl: "https://yellow-meerkat-slip.cyclic.app/api/v1/chat/completions"
   },
 };
 

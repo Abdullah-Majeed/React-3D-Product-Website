@@ -27,7 +27,7 @@ const Customizer = () => {
     logoShirt: true,
     stylishShirt: false,
   })
-
+  // console.log(config.production.dalleBackendUrl, "dev")
   // show tab content depending on the activeTab
   const generateTabContent = () => {
     switch (activeEditorTab) {
@@ -65,7 +65,7 @@ const Customizer = () => {
     try {
       setGeneratingImg(true);
 
-      const response = await fetch('http://localhost:8080/api/v1/dalle', {
+      const response = await fetch(config.production.dalleBackendUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const Customizer = () => {
     try {
       setGeneratingMessage(true);
 
-      const response = await fetch('http://localhost:8080/api/v1/chat/completions', {
+      const response = await fetch(config.production.chatBackendurl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
